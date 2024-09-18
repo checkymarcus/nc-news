@@ -5,38 +5,52 @@
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.header {
+  color: black;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.articlecard {
+  display: grid;
+  grid-template-areas:
+    "name"
+    "image"
+    "author";
+
+  background-color: whitesmoke;
+  border-radius: 5px;
+  padding: 15px;
+  place-content: center;
+  margin: 14px;
+  box-shadow: 0px 0px 20px 0px rgb(232, 229, 226);
+  height: 300px;
+  width: 200px;
+  max-width: 300px;
+  max-height: 300px;
+}
+.image {
+  height: 200px;
+  width: 200px;
+
+  border-radius: 3px;
+
+  place-items: center;
+  max-width: auto;
+}
+.name {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-weight: 500;
+  display: flex;
+
+  letter-spacing: -0.5px;
+
+  place-content: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+.allarticles {
+  background-color: whitesmoke;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  place-content: center;
 }
