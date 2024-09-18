@@ -18,6 +18,16 @@
   margin-top: 20px;
 }
 
+.allarticles a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+.allarticles a:hover {
+  text-decoration: none;
+  color: inherit;
+}
+
 .articlecard {
   display: flex;
   align-items: center;
