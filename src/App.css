@@ -28,13 +28,13 @@
   gap: 20px;
   transition: transform 0.3s ease, box-shadow 0.3s ease,
     background-color 0.3s ease;
-  cursor: pointer; /* Changes cursor to pointer on hover */
+  cursor: pointer;
 }
 
 .articlecard:hover {
-  transform: translateY(-5px); /* Slightly raise the card on hover */
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2); /* Add a stronger shadow */
-  background-color: #f0f8ff; /* Light blue background highlight */
+  transform: translateY(-5px);
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+  background-color: #f0f8ff;
 }
 
 .image {
