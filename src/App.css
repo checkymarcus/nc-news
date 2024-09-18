@@ -2,55 +2,61 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
 }
 
 .header {
   color: black;
-}
-
-.articlecard {
-  display: grid;
-  grid-template-areas:
-    "name"
-    "image"
-    "author";
-
-  background-color: whitesmoke;
-  border-radius: 5px;
-  padding: 15px;
-  place-content: center;
-  margin: 14px;
-  box-shadow: 0px 0px 20px 0px rgb(232, 229, 226);
-  height: 300px;
-  width: 200px;
-  max-width: 300px;
-  max-height: 300px;
-}
-.image {
-  height: 200px;
-  width: 200px;
-
-  border-radius: 3px;
-
-  place-items: center;
-  max-width: auto;
-}
-.name {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  font-weight: 500;
-  display: flex;
-
-  letter-spacing: -0.5px;
-
-  place-content: center;
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 2rem;
 }
 
 .allarticles {
-  background-color: whitesmoke;
   display: flex;
-  flex-wrap: wrap;
-  margin-top: 10px;
-  place-content: center;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.articlecard {
+  display: flex;
+  align-items: center;
+  background-color: whitesmoke;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  gap: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease,
+    background-color 0.3s ease;
+  cursor: pointer; /* Changes cursor to pointer on hover */
+}
+
+.articlecard:hover {
+  transform: translateY(-5px); /* Slightly raise the card on hover */
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2); /* Add a stronger shadow */
+  background-color: #f0f8ff; /* Light blue background highlight */
+}
+
+.image {
+  width: 150px;
+  height: 150px;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+.article-info {
+  flex: 1;
+}
+
+.name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.author {
+  font-size: 1rem;
+  color: #777;
+  margin-bottom: 5px;
 }

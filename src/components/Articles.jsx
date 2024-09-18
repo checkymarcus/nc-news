@@ -21,18 +21,21 @@ const Articles = () => {
     return <p>{error}</p>;
   }
   console.log(allArticles.articles);
+
   return (
-    <ArticleCard>
-      <div className="allarticles">
-        {allArticles.articles.map((article) => (
-          <div key={article.article_id}>
-            <p className="name">{article.title}</p>
-            <p className="author"> {article.author}</p>
-            <img className="image" src={article.article_img_url}></img>
-          </div>
-        ))}
-      </div>
-    </ArticleCard>
+    <div className="allarticles">
+      {allArticles.articles.map((article) => (
+        <ArticleCard
+          key={article.article_id}
+          image={article.article_img_url}
+          title={article.title}
+          author={article.author}
+          topic={article.topic}
+          date={article.created_at}
+        />
+      ))}
+    </div>
   );
 };
+
 export default Articles;
