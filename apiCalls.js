@@ -12,3 +12,7 @@ export const getAllArticles = () => {
 export const getArticleById = (id) => {
   return api.get(`/articles/${id}`);
 };
+
+export const getCommentsByArticleId = (id) => {
+  return api.get(`articles/${id}/comments`);
+};

@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getArticleById } from "../../apiCalls";
+import { Link } from "react-router-dom";
 
 const ArticleDetails = () => {
   const { articleId } = useParams();
@@ -34,7 +35,12 @@ const ArticleDetails = () => {
           <p>
             Published on {new Date(article.created_at).toLocaleDateString()}
           </p>
-          <p> {article.comments}</p>
+          <Link
+            key={article.article_id}
+            to={`/articles/${article.article_id}/comments`}
+          >
+            <button> View All Comments </button>
+          </Link>
         </div>
       ))}
     </div>

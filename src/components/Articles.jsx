@@ -39,6 +39,7 @@ const Articles = () => {
             author={article.author}
             topic={article.topic}
             date={article.created_at}
+            q
           />
         </Link>
       ))}
