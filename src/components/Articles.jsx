@@ -1,18 +1,20 @@
 import { getAllArticles } from "../../apiCalls";
 import { useState, useEffect } from "react";
 import { ArticleCard } from "./ArticleCard";
-import { useLocation } from "react-router-dom";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { UserContext } from "./UserContext";
 
 const Articles = () => {
-  const location = useLocation();
-  const { username } = location.state || { username: "Guest" };
+  const { username } = useContext(UserContext);
   const [allArticles, setAllArticles] = useState({ articles: [] });
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     getAllArticles()
       .then((response) => {
         setAllArticles(response.data);
+        setIsLoading(false);
       })
 
       .catch((error) => {
