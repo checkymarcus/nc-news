@@ -39,7 +39,8 @@ const Articles = () => {
             author={article.author}
             topic={article.topic}
             date={article.created_at}
-            q
+            votes={article.votes}
+            article_id={article.article_id}
           />
         </Link>
       ))}
