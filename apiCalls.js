@@ -2,7 +2,6 @@ import axios from "axios";
 
 const api = axios.create({
   baseURL: "https://remi-hill.onrender.com/api",
-  timeout: 5000,
 });
 
 export const getAllArticles = () => {
@@ -19,4 +18,11 @@ export const getCommentsByArticleId = (id) => {
 
 export const addVotesByArticleId = (id, voteChange) => {
   return api.patch(`articles/${id}`, voteChange);
+};
+export const getUsers = () => {
+  return api.get("/users");
+};
+
+export const postCommentByArticleId = (id, commentData) => {
+  return api.post(`/articles/${id}/comments`, commentData);
 };

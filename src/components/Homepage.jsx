@@ -1,21 +1,45 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { UserContext } from "./UserContext";
+import { getUsers } from "../../apiCalls";
 
 export const Homepage = () => {
-  const [username, setUsername] = useState("");
-  const handleClick = (e) => {
+  const { username, setUsername } = useContext(UserContext);
+  const [users, setUsers] = useState([]);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    getUsers()
+      .then((response) => {
+        setUsers(response.data.users);
+      })
+      .catch((err) => {
+        console.error("Error fetching users:", err);
+        setError("Failed to load users.");
+      });
+  }, []);
+
+  const handleUserSelect = (e) => {
     setUsername(e.target.value);
   };
+
   return (
     <div className="header">
-      <input
-        type="text"
-        onChange={handleClick}
-        value={username}
-        placeholder="Enter username"
-      ></input>
-      <Link to="/articles" state={{ username }}>
-        <button className="text">Create Account</button>
+      <h1>Welcome! Choose an existing username.</h1>
+
+      {error && <p>{error}</p>}
+
+      <select onChange={handleUserSelect} value={username}>
+        <option value="">Select a user</option>
+        {users.map((user) => (
+          <option key={user.username} value={user.username}>
+            {user.username}
+          </option>
+        ))}
+      </select>
+
+      <Link to="/articles">
+        <button className="text">Continue as {username}</button>
       </Link>
     </div>
   );
