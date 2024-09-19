@@ -23,6 +23,10 @@ export const Comments = () => {
 
   console.log(allComments);
 
+  if (loading) {
+    return <p> Loading....</p>;
+  }
+
   return (
     <div className="allcomments">
       <h1>Comments</h1>
