@@ -1,51 +1,63 @@
 import { getAllArticles } from "../../apiCalls";
 import { useState, useEffect } from "react";
+import { useSearchParams, Link } from "react-router-dom";
 import { ArticleCard } from "./ArticleCard";
-import { useContext } from "react";
-import { Link } from "react-router-dom";
-import { UserContext } from "./UserContext";
+import { Topics } from "./Topics";
 
 const Articles = () => {
-  const { user } = useContext(UserContext);
-  const [allArticles, setAllArticles] = useState({ articles: [] });
+  const [searchParams] = useSearchParams();
+  const topic = searchParams.get("topic");
+
+  const [articles, setArticles] = useState([]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     getAllArticles()
       .then((response) => {
-        setAllArticles(response.data);
+        const filteredArticles = response.data.articles.filter(
+          (article) => !topic || topic === "All" || article.topic === topic
+        );
+        setArticles(filteredArticles);
         setIsLoading(false);
       })
-
       .catch((error) => {
         console.error("Error fetching articles:", error);
         setError("Failed to load articles.");
+        setIsLoading(false);
       });
-  }, []);
+  }, [topic]);
 
   if (error) {
     return <p>{error}</p>;
   }
-  console.log(allArticles.articles);
+
+  if (isLoading) {
+    return <p>Loading articles...</p>;
+  }
 
   return (
     <div className="allarticles">
-      <h1> Hello {user}! View all Articles below </h1>
+      <Topics />
+      <h1>Articles for Topic: {topic ? topic : "All"}</h1>
 
-      {allArticles.articles.map((article) => (
-        <Link key={article.article_id} to={`/articles/${article.article_id}`}>
-          <ArticleCard
-            key={article.article_id}
-            image={article.article_img_url}
-            title={article.title}
-            author={article.author}
-            topic={article.topic}
-            date={article.created_at}
-            votes={article.votes}
-            article_id={article.article_id}
-          />
-        </Link>
-      ))}
+      {articles.length > 0 ? (
+        articles.map((article) => (
+          <Link key={article.article_id} to={`/articles/${article.article_id}`}>
+            <ArticleCard
+              image={article.article_img_url}
+              title={article.title}
+              author={article.author}
+              topic={article.topic}
+              date={article.created_at}
+              votes={article.votes}
+              article_id={article.article_id}
+            />
+          </Link>
+        ))
+      ) : (
+        <p>No articles found for this topic.</p>
+      )}
     </div>
   );
 };
