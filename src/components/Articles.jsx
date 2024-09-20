@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { UserContext } from "./UserContext";
 
 const Articles = () => {
-  const { username } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const [allArticles, setAllArticles] = useState({ articles: [] });
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -30,7 +30,7 @@ const Articles = () => {
 
   return (
     <div className="allarticles">
-      <h1> Hello {username}! View all Articles below </h1>
+      <h1> Hello {user}! View all Articles below </h1>
 
       {allArticles.articles.map((article) => (
         <Link key={article.article_id} to={`/articles/${article.article_id}`}>

@@ -16,8 +16,8 @@ export const getCommentsByArticleId = (id) => {
   return api.get(`articles/${id}/comments`);
 };
 
-export const addVotesByArticleId = (id, voteChange) => {
-  return api.patch(`articles/${id}`, voteChange);
+export const addVotesByArticleId = (id, incVotes) => {
+  return api.patch(`articles/${id}`, incVotes);
 };
 export const getUsers = () => {
   return api.get("/users");
@@ -25,4 +25,8 @@ export const getUsers = () => {
 
 export const postCommentByArticleId = (id, commentData) => {
   return api.post(`/articles/${id}/comments`, commentData);
+};
+
+export const deleteCommentById = (id) => {
+  return api.delete(`/comments/${id}`);
 };

@@ -11,7 +11,7 @@ export const Comments = () => {
   const [posting, setPosting] = useState(false);
   const [error, setError] = useState(null);
   const { articleId } = useParams();
-  const { username } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     setLoading(true);
@@ -32,34 +32,32 @@ export const Comments = () => {
     setPosting(true);
 
     const commentData = {
-      username: username,
+      username: user,
       body: newComment,
     };
 
-    const tempComment = {
-      username: username,
-      body: newComment,
-      tempId: Date.now(),
-    };
-
-    setAllComments((prevComments) => [tempComment, ...prevComments]);
+    setAllComments((prevComments) => [commentData, ...prevComments]);
     setNewComment("");
 
     postCommentByArticleId(articleId, commentData).then((response) => {
       const newPostedComment = response.data.comment;
 
-      setAllComments((prevComments) =>
-        prevComments.map((comment) =>
-          comment.tempId === tempComment.tempId ? newPostedComment : comment
-        )
-      );
+      setAllComments((prevComments) => prevComments.map((comment) => comment));
 
       setPosting(false);
     });
   };
+  const handleCommentDelete = (commentId) => {
+    setComments((prevComments) =>
+      prevComments.filter((comment) => comment.comment_id !== commentId)
+    );
+  };
 
   if (loading) {
     return <p>Loading comments...</p>;
+  }
+  if (posting) {
+    return <p> Posting comment... </p>;
   }
 
   return (
@@ -84,7 +82,11 @@ export const Comments = () => {
       {allComments.length > 0 ? (
         allComments.map((comment) =>
           comment && comment.body ? (
-            <CommentCard key={comment.comment_id} comment={comment}>
+            <CommentCard
+              key={comment.comment_id}
+              comment={comment}
+              onDelete={handleCommentDelete}
+            >
               <p>{comment.body}</p>
             </CommentCard>
           ) : null

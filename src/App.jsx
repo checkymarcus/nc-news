@@ -7,6 +7,7 @@ import { Homepage } from "./components/Homepage.jsx";
 import ArticleDetails from "./components/ArticleDetails.jsx";
 import { Comments } from "./components/Comments.jsx";
 import { UserProvider } from "./components/UserContext";
+import { AddVoting } from "./components/AddVoting.jsx";
 
 function App() {
   return (
