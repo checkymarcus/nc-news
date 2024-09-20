@@ -22,7 +22,7 @@ export const Comments = () => {
     setLoading(true);
     getCommentsByArticleId(articleId)
       .then((response) => {
-        setAllComments(response.data.articleComments || []);
+        setAllComments(response.data.articleComments);
 
         setLoading(false);
       })
@@ -71,11 +71,14 @@ export const Comments = () => {
     setAllComments((prevComments) =>
       prevComments.filter((comment) => comment.comment_id !== commentId)
     );
-    setReload((prev) => prev - +1);
+    setReload((prev) => prev + 1);
   };
 
   if (loading) {
-    return <p>Loading comments...</p>;
+    setTimeout(() => {
+      5000;
+      return <p>Loading comments...</p>;
+    });
   }
   if (posting) {
     return <p> Posting comment... </p>;
