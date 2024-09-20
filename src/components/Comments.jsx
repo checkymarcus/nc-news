@@ -30,7 +30,7 @@ export const Comments = () => {
         console.error("Error fetching comments:", error);
         setLoading(false);
       });
-  }, [articleId, reload, comment]);
+  }, [articleId, reload]);
 
   const handleSubmitComment = (e) => {
     e.preventDefault();
