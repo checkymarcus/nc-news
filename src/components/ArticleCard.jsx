@@ -1,4 +1,3 @@
-import { addVotesByArticleId } from "../../apiCalls";
 import { useState } from "react";
 export const ArticleCard = ({ image, title, author, topic, date, votes }) => {
   return (
