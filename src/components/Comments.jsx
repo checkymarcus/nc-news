@@ -1,10 +1,15 @@
 import { useState, useEffect, useContext } from "react";
-import { getCommentsByArticleId, postCommentByArticleId } from "../../apiCalls";
+import {
+  getCommentsByArticleId,
+  postCommentByArticleId,
+  deleteCommentById,
+} from "../../apiCalls";
 import { useParams } from "react-router";
 import { CommentCard } from "./CommentCard";
 import { UserContext } from "./UserContext";
 
 export const Comments = () => {
+  const [reload, setReload] = useState(0);
   const [allComments, setAllComments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [newComment, setNewComment] = useState("");
@@ -25,7 +30,7 @@ export const Comments = () => {
         console.error("Error fetching comments:", error);
         setLoading(false);
       });
-  }, [articleId]);
+  }, [articleId, reload, comment]);
 
   const handleSubmitComment = (e) => {
     e.preventDefault();
@@ -39,18 +44,34 @@ export const Comments = () => {
     setAllComments((prevComments) => [commentData, ...prevComments]);
     setNewComment("");
 
-    postCommentByArticleId(articleId, commentData).then((response) => {
-      const newPostedComment = response.data.comment;
+    postCommentByArticleId(articleId, commentData)
+      .then((response) => {
+        const newPostedComment = response.data.comment;
 
-      setAllComments((prevComments) => prevComments.map((comment) => comment));
+        setAllComments((prevComments) =>
+          prevComments.map((comment) =>
+            comment === commentData ? newPostedComment : comment
+          )
+        );
+        setReload((prev) => prev + 1);
+      })
+      .catch((error) => {
+        console.error("Error posting comment:", error);
 
-      setPosting(false);
-    });
+        setAllComments((prevComments) =>
+          prevComments.filter((comment) => comment !== commentData)
+        );
+      })
+      .finally(() => {
+        setPosting(false);
+      });
   };
   const handleCommentDelete = (commentId) => {
-    setComments((prevComments) =>
+    deleteCommentById(commentId);
+    setAllComments((prevComments) =>
       prevComments.filter((comment) => comment.comment_id !== commentId)
     );
+    setReload((prev) => prev - +1);
   };
 
   if (loading) {

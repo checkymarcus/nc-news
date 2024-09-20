@@ -1,12 +1,12 @@
 import { useContext } from "react";
 import { UserContext } from "./UserContext";
 import { deleteCommentById } from "../../apiCalls";
-export const CommentCard = ({ comment }) => {
+export const CommentCard = ({ comment, onDelete }) => {
   const { user } = useContext(UserContext);
   const { body, author, votes, comment_id } = comment;
 
   const handleDelete = (event) => {
-    deleteCommentById(comment_id);
+    onDelete(comment_id);
   };
 
   return (
@@ -16,10 +16,7 @@ export const CommentCard = ({ comment }) => {
       <p className="commentauthor">By {author}</p>
       <p className="votes">Votes: {votes}</p>
       {user === author ? (
-        <button onClick={(event) => handleDelete(event)}>
-          {" "}
-          Delete Comment{" "}
-        </button>
+        <button onClick={(event) => handleDelete(event)}>Delete Comment</button>
       ) : null}
     </div>
   );
