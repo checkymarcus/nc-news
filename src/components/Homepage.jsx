@@ -24,9 +24,8 @@ export const Homepage = () => {
   const handleUserSelect = (e) => {
     setUsername(e.target.value);
   };
-
   if (isLoading) {
-    return <p> Loading... </p>;
+    return <p> Loading.... </p>;
   }
 
   return (
