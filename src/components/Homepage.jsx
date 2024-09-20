@@ -7,11 +7,13 @@ export const Homepage = () => {
   const { username, setUsername } = useContext(UserContext);
   const [users, setUsers] = useState([]);
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     getUsers()
       .then((response) => {
         setUsers(response.data.users);
+        setIsLoading(false);
       })
       .catch((err) => {
         console.error("Error fetching users:", err);
@@ -22,6 +24,10 @@ export const Homepage = () => {
   const handleUserSelect = (e) => {
     setUsername(e.target.value);
   };
+
+  if (isLoading) {
+    return <p> Loading... </p>;
+  }
 
   return (
     <div className="header">
